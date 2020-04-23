@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "474352526306",
+    "firebase_url": "https://place-to-pay.firebaseio.com",
+    "project_id": "place-to-pay",
+    "storage_bucket": "place-to-pay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474352526306:android:20835f4b1d9b0f87568fbb",
+        "android_client_info": {
+          "package_name": "com.placetopay.commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474352526306-c9nra5d6kfthkenetn1nbd6et3fk7hsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpdI1L_Tdjwq-iWVF21dKEDuTt5UfcZRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474352526306-c9nra5d6kfthkenetn1nbd6et3fk7hsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
