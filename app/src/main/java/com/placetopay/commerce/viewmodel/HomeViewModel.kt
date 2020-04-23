@@ -9,7 +9,7 @@ import com.placetopay.commerce.R
 import com.placetopay.commerce.model.Products
 import com.placetopay.commerce.model.observable.HomeObservable
 import com.placetopay.commerce.util.SingleLiveEvent
-import com.placetopay.commerce.view.RecyclerProductsAdapter
+import com.placetopay.commerce.view.adapter.RecyclerProductsAdapter
 import com.squareup.picasso.Picasso
 
 class HomeViewModel : ViewModel() {
@@ -17,6 +17,7 @@ class HomeViewModel : ViewModel() {
     private var productsObservable = HomeObservable()
     private var recyclerProductsAdapter: RecyclerProductsAdapter? = null
     private val openMenu = SingleLiveEvent<Any>()
+    var selected: MutableLiveData<Products> = MutableLiveData<Products>()
 
     val getOpenMenu: LiveData<Any>
         get() = openMenu
@@ -36,20 +37,37 @@ class HomeViewModel : ViewModel() {
 
     fun setProductsInRecyclerAdapter(products: List<Products>) {
         if (recyclerProductsAdapter == null)
-            recyclerProductsAdapter = RecyclerProductsAdapter(this, R.layout.card_product)
+            recyclerProductsAdapter =
+                RecyclerProductsAdapter(
+                    this,
+                    R.layout.card_product
+                )
         recyclerProductsAdapter?.setProductsList(products)
         recyclerProductsAdapter?.notifyDataSetChanged()
     }
 
     fun getRecyclerProductsAdapter(): RecyclerProductsAdapter? {
         if (recyclerProductsAdapter == null)
-            recyclerProductsAdapter = RecyclerProductsAdapter(this, R.layout.card_product)
+            recyclerProductsAdapter =
+                RecyclerProductsAdapter(
+                    this,
+                    R.layout.card_product
+                )
         return recyclerProductsAdapter
     }
 
     fun getProductAt(position: Int): Products? {
         var products: List<Products>? = productsObservable.getProducts().value
         return products?.get(position)
+    }
+
+    fun getProductSelected(): MutableLiveData<Products> {
+        return selected
+    }
+
+    fun onProductClick(index: Int) {
+        val coupon = getProductAt(index)
+        selected.value = coupon
     }
 }
 

@@ -22,6 +22,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
+        android:onClick="@{() -> model.onProductClick(position)}"
         app:cardBackgroundColor="@color/colorWhite"
         app:cardCornerRadius="8dp">
 
