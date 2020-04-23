@@ -21,8 +21,14 @@ class ProductsRepository {
             if (firebaseFirestore == null)
                 firebaseFirestore = FirebaseFirestore.getInstance()
 
-            firebaseFirestore?.collection("products")?.get()
-                ?.addOnSuccessListener { result ->
+            firebaseFirestore?.collection("products")?.addSnapshotListener { result, e ->
+
+                if (e != null) {
+                    Log.e(tag, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (result != null && !result.isEmpty) {
                     var productsList = ArrayList<Products>()
                     for (document in result) {
                         var product = Products()
@@ -38,14 +44,12 @@ class ProductsRepository {
                         productsList.add(product)
                     }
                     products.value = productsList
+                } else {
+                    Log.e(tag, "Current data: null")
                 }
-                ?.addOnFailureListener {
-                    Log.e(tag, it.message)
-                }
+            }
         } catch (e: Exception) {
             Log.e(tag, e.message)
         }
-
     }
-
 }
