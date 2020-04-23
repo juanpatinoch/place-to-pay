@@ -1,5 +1,6 @@
 package com.placetopay.commerce.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
@@ -28,10 +29,11 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         activityMainBinding.lifecycleOwner = this
         activityMainBinding.model = homeViewModel
-        setupListUpdate()
+
+        setupObservabelEvents()
     }
 
-    private fun setupListUpdate() {
+    private fun setupObservabelEvents() {
         homeViewModel?.callProducts()
 
         homeViewModel?.getOpenMenu?.observe(this, Observer {
@@ -40,6 +42,13 @@ class HomeActivity : AppCompatActivity() {
 
         homeViewModel?.getProducts()?.observe(this, Observer {
             homeViewModel?.setProductsInRecyclerAdapter(it)
+        })
+
+        homeViewModel?.getProductSelected()?.observe(this, Observer {
+            val intent = Intent(this, ProductDetailActivity::class.java).apply {
+                putExtra("product", it)
+            }
+            startActivity(intent)
         })
     }
 }

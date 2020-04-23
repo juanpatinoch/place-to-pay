@@ -1,4 +1,4 @@
-package com.placetopay.commerce.view
+package com.placetopay.commerce.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,7 +22,9 @@ class RecyclerProductsAdapter(var homeViewModel: HomeViewModel, var resource: In
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding =
             DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
-        return CardProductHolder(binding)
+        return CardProductHolder(
+            binding
+        )
     }
 
     override fun getItemCount(): Int {
