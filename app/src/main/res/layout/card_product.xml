@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{model.getProductAt(position).price.toString()}"
+                android:text="@{model.getProductAt(position).priceText}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{model.getProductAt(position).discountText}"
+                android:text="@{model.getProductAt(position).discount}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tetxViewProductDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
