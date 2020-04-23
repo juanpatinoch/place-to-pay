@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,63 +11,46 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorGrayLight"
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:layout_constraintEnd_toEndOf="parent"
+            <ImageView
+                android:id="@+id/imageViewMenu"
+                android:layout_width="@dimen/drawable_icon_button_size_large"
+                android:layout_height="@dimen/drawable_icon_button_size_large"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="imageViewMenu"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            </com.google.android.material.appbar.AppBarLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{() -> model.onClickOpenMenu()}"
+                app:srcCompat="@mipmap/ic_menu" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHomeProducts"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorGrayLight"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
                 android:padding="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewMenu"
                 app:setAdapter="@{model.getRecyclerProductsAdapter}" />
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            android:background="@color/colorPrimary"
-            app:itemTextColor="@color/colorGrayDark"
-            app:itemIconTint="@color/colorGrayDark"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_home_drawer" />
+        <include layout="@layout/menu_layout" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

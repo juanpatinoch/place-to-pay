@@ -1,8 +1,10 @@
 package com.placetopay.commerce.view
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.placetopay.commerce.R
@@ -15,7 +17,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        
 
         setupBindings(savedInstanceState)
     }
@@ -25,12 +26,18 @@ class HomeActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_home)
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        activityMainBinding.lifecycleOwner = this
         activityMainBinding.model = homeViewModel
         setupListUpdate()
     }
 
     private fun setupListUpdate() {
         homeViewModel?.callProducts()
+
+        homeViewModel?.getOpenMenu?.observe(this, Observer {
+            findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(Gravity.LEFT)
+        })
+
         homeViewModel?.getProducts()?.observe(this, Observer {
             homeViewModel?.setProductsInRecyclerAdapter(it)
         })
