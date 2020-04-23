@@ -13,19 +13,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorGrayLight"
         tools:context=".view.HomeActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewHomeProducts"
             android:layout_width="409dp"
             android:layout_height="729dp"
+            android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setAdapter="@{model.getRecyclerProductsAdapter}"
-            />
+            app:setAdapter="@{model.getRecyclerProductsAdapter}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

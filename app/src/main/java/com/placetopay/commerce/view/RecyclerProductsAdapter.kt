@@ -19,8 +19,8 @@ class RecyclerProductsAdapter(var productsViewModel: ProductsViewModel, var reso
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardProductHolder {
-        var layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        var binding: ViewDataBinding =
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val binding: ViewDataBinding =
             DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
         return CardProductHolder(binding)
     }
