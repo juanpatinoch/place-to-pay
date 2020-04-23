@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.placetopay.commerce.R
 import com.placetopay.commerce.model.Products
-import com.placetopay.commerce.model.observable.ProductsObservable
+import com.placetopay.commerce.model.observable.HomeObservable
 import com.placetopay.commerce.view.RecyclerProductsAdapter
 import com.squareup.picasso.Picasso
 
-class ProductsViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
 
-    private var productsObservable = ProductsObservable()
+    private var productsObservable = HomeObservable()
     private var recyclerProductsAdapter: RecyclerProductsAdapter? = null
 
     fun callProducts() {

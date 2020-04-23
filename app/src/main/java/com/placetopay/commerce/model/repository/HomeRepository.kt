@@ -8,7 +8,7 @@ import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ProductsRepository {
+class HomeRepository {
 
     private val tag = "ProductsRepository"
 

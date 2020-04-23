@@ -7,9 +7,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.placetopay.commerce.BR
 import com.placetopay.commerce.model.Products
-import com.placetopay.commerce.viewmodel.ProductsViewModel
+import com.placetopay.commerce.viewmodel.HomeViewModel
 
-class RecyclerProductsAdapter(var productsViewModel: ProductsViewModel, var resource: Int) :
+class RecyclerProductsAdapter(var homeViewModel: HomeViewModel, var resource: Int) :
     RecyclerView.Adapter<RecyclerProductsAdapter.CardProductHolder>() {
 
     private var products: List<Products>? = null
@@ -30,7 +30,7 @@ class RecyclerProductsAdapter(var productsViewModel: ProductsViewModel, var reso
     }
 
     override fun onBindViewHolder(holder: CardProductHolder, position: Int) {
-        holder.setDataCard(productsViewModel, position)
+        holder.setDataCard(homeViewModel, position)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -50,7 +50,7 @@ class RecyclerProductsAdapter(var productsViewModel: ProductsViewModel, var reso
             this.viewDataBinding = viewDataBinding
         }
 
-        fun setDataCard(productsViewModel: ProductsViewModel, position: Int) {
+        fun setDataCard(productsViewModel: HomeViewModel, position: Int) {
             viewDataBinding?.setVariable(BR.model, productsViewModel)
             viewDataBinding?.setVariable(BR.position, position)
             viewDataBinding?.executePendingBindings()
