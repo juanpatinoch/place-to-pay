@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Place to pay Commerce</string>
+    <string name="app_name">PlaceToPay</string>
+
+    <string name="menu_hisotry">Ver transacciones</string>
 </resources>

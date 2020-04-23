@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textView_big_size">20sp</dimen>
+    <dimen name="textView_medium_size">17sp</dimen>
+    <dimen name="textView_small_size">25sp</dimen>
+
+    <dimen name="drawable_icon_button_size_small">18dp</dimen>
+    <dimen name="drawable_icon_button_size_normal">24dp</dimen>
+    <dimen name="drawable_icon_button_size_large">36dp</dimen>
+    <dimen name="drawable_icon_button_size_big">48dp</dimen>
+    <dimen name="drawable_icon_button_size_super_big">56dp</dimen>
+
+    <dimen name="view_size">0.5dp</dimen>
+</resources>

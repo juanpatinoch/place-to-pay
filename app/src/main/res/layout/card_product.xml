@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.placetopay.commerce.viewmodel.ProductsViewModel" />
+            type="com.placetopay.commerce.viewmodel.HomeViewModel" />
 
     </data>
 
@@ -21,22 +18,53 @@
         android:id="@+id/cardViewProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp">
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="600px">
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="194dp"
+                android:contentDescription="@{model.getProductAt(position).code}"
+                app:imageUrl="@{model.getProductAt(position).image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tetxViewProductPrice"
+                android:id="@+id/textViewProductDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{model.getProductAt(position).discount}"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/textView_big_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/textViewProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@{model.getProductAt(position).priceText}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/textView_big_size"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
                 android:id="@+id/tetxViewProductName"
@@ -44,29 +72,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="@{model.getProductAt(position).name}"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/textView_big_size"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tetxViewProductPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewProductPrice" />
 
-            <TextView
-                android:id="@+id/tetxViewProductDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@{model.getProductAt(position).description}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tetxViewProductName" />
-
-            <TextView
-                android:id="@+id/tetxViewProductDiscount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@{model.getProductAt(position).discount}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tetxViewProductDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

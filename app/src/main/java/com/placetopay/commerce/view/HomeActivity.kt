@@ -1,16 +1,18 @@
 package com.placetopay.commerce.view
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.placetopay.commerce.R
-import com.placetopay.commerce.viewmodel.ProductsViewModel
+import com.placetopay.commerce.viewmodel.HomeViewModel
 
 class HomeActivity : AppCompatActivity() {
 
-    private var productsViewModel: ProductsViewModel? = null
+    private var homeViewModel: HomeViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,19 +21,25 @@ class HomeActivity : AppCompatActivity() {
         setupBindings(savedInstanceState)
     }
 
-    fun setupBindings(savedInstanceState: Bundle?) {
+    private fun setupBindings(savedInstanceState: Bundle?) {
         var activityMainBinding: com.placetopay.commerce.databinding.ActivityHomeBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_home)
 
-        productsViewModel = ViewModelProviders.of(this).get(ProductsViewModel::class.java)
-        activityMainBinding.model = productsViewModel
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        activityMainBinding.lifecycleOwner = this
+        activityMainBinding.model = homeViewModel
         setupListUpdate()
     }
 
-    fun setupListUpdate() {
-        productsViewModel?.callProducts()
-        productsViewModel?.getProducts()?.observe(this, Observer {
-            productsViewModel?.setProductsInRecyclerAdapter(it)
+    private fun setupListUpdate() {
+        homeViewModel?.callProducts()
+
+        homeViewModel?.getOpenMenu?.observe(this, Observer {
+            findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(Gravity.LEFT)
+        })
+
+        homeViewModel?.getProducts()?.observe(this, Observer {
+            homeViewModel?.setProductsInRecyclerAdapter(it)
         })
     }
 }

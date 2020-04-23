@@ -4,8 +4,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.placetopay.commerce.model.Products
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ProductsRepository {
+class HomeRepository {
 
     private val tag = "ProductsRepository"
 
@@ -30,6 +33,11 @@ class ProductsRepository {
 
                 if (result != null && !result.isEmpty) {
                     var productsList = ArrayList<Products>()
+
+                    val format: NumberFormat = NumberFormat.getCurrencyInstance()
+                    format.maximumFractionDigits = 0
+                    format.currency = Currency.getInstance("COP")
+
                     for (document in result) {
                         var product = Products()
                         product.code = document.id
@@ -39,7 +47,7 @@ class ProductsRepository {
                         product.image = document.data["image"].toString()
                         product.header = document.data["header"].toString()
                         product.discount = document.data["discount"].toString()
-                        product.priceText = document.data["price"].toString()
+                        product.priceText = format.format(document.data["price"].toString().toLong())
 
                         productsList.add(product)
                     }
