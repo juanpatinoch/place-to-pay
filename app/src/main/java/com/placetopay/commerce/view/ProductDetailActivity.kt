@@ -1,9 +1,11 @@
 package com.placetopay.commerce.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
 import com.placetopay.commerce.R
 import com.placetopay.commerce.model.Products
 import com.squareup.picasso.Picasso
@@ -26,6 +28,11 @@ class ProductDetailActivity : AppCompatActivity() {
         Picasso.get().load(product?.image).resize(520, 520).centerInside()
             .into(findViewById<ImageView>(R.id.imageViewProductDetail))
 
+        findViewById<MaterialButton>(R.id.buttonProductDetailBuy).setOnClickListener {
+            val intent = Intent(this, PayProduct::class.java)
+            intent.putExtra("product", product)
+            startActivity(intent)
+        }
         findViewById<ImageView>(R.id.imageViewProductDetailBack).setOnClickListener {
             finish()
         }
