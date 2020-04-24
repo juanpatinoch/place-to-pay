@@ -8,12 +8,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.placetopay.commerce.BR
 import com.placetopay.commerce.R
 import com.placetopay.commerce.viewmodel.HomeViewModel
+
 
 class HomeActivity : AppCompatActivity() {
 
     private var homeViewModel: HomeViewModel? = null
+    private var activityHomeDataBinding: com.placetopay.commerce.databinding.ActivityHomeBinding? =
+        null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,31 +27,47 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupBindings(savedInstanceState: Bundle?) {
-        var activityMainBinding: com.placetopay.commerce.databinding.ActivityHomeBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_home)
-
+        activityHomeDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        activityMainBinding.lifecycleOwner = this
-        activityMainBinding.model = homeViewModel
+        activityHomeDataBinding?.model = homeViewModel
 
-        setupObservabelEvents()
+        setupOpenMenuClickBinding()
+        setupSignOutClickBinding()
+        setupCurrentUserBinding()
+        setupProductsBinding()
     }
 
-    private fun setupObservabelEvents() {
+    private fun setupProductsBinding() {
         homeViewModel?.callProducts()
-
-        homeViewModel?.getOpenMenu?.observe(this, Observer {
-            findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(Gravity.LEFT)
-        })
-
         homeViewModel?.getProducts()?.observe(this, Observer {
             homeViewModel?.setProductsInRecyclerAdapter(it)
         })
-
         homeViewModel?.getProductSelected()?.observe(this, Observer {
-            val intent = Intent(this, ProductDetailActivity::class.java).apply {
-                putExtra("product", it)
-            }
+            val intent = Intent(this, ProductDetailActivity::class.java)
+            intent.putExtra("product", it)
+            startActivity(intent)
+        })
+    }
+
+    private fun setupCurrentUserBinding() {
+        homeViewModel?.callCurrentUser()
+        homeViewModel?.getCurrentUser()?.observe(this, Observer {
+            activityHomeDataBinding?.setVariable(BR.displayName, it.displayName)
+            activityHomeDataBinding?.executePendingBindings()
+        })
+    }
+
+    private fun setupOpenMenuClickBinding() {
+        homeViewModel?.getOpenMenu?.observe(this, Observer {
+            findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(Gravity.LEFT)
+        })
+    }
+
+    private fun setupSignOutClickBinding() {
+        homeViewModel?.getSignOut()?.observe(this, Observer {
+            val intent = Intent(this, SplashActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         })
     }

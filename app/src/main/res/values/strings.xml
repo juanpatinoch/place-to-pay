@@ -2,6 +2,7 @@
     <string name="app_name">PlaceToPay</string>
 
     <string name="menu_hisotry">Ver transacciones</string>
+    <string name="menu_sign_out">Cerrar sesión</string>
 
     <string name="product_detail_buy">Comprar</string>
 </resources>

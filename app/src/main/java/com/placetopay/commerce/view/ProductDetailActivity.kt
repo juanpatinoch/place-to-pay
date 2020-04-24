@@ -18,17 +18,16 @@ class ProductDetailActivity : AppCompatActivity() {
 
         product = intent.getSerializableExtra("product") as Products
 
-        val name = findViewById<TextView>(R.id.textViewProductDetailName)
-        val price = findViewById<TextView>(R.id.textViewProductDetailPrice)
-        val discount = findViewById<TextView>(R.id.textViewProductDetailDiscount)
-        val description = findViewById<TextView>(R.id.textViewProductDetailDescription)
-        val image = findViewById<ImageView>(R.id.imageViewProductDetail)
+        findViewById<TextView>(R.id.textViewProductDetailName).text = product?.name
+        findViewById<TextView>(R.id.textViewProductDetailPrice).text = product?.priceText
+        findViewById<TextView>(R.id.textViewProductDetailDiscount).text = product?.discount
+        findViewById<TextView>(R.id.textViewProductDetailDescription).text = product?.description
 
-        name.text = product?.name
-        price.text = product?.priceText
-        discount.text = product?.discount
-        description.text = product?.description
+        Picasso.get().load(product?.image).resize(520, 520).centerInside()
+            .into(findViewById<ImageView>(R.id.imageViewProductDetail))
 
-        Picasso.get().load(product?.image).resize(520, 520).centerInside().into(image)
+        findViewById<ImageView>(R.id.imageViewProductDetailBack).setOnClickListener {
+            finish()
+        }
     }
 }
