@@ -2,7 +2,7 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorGray</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorGrayLight</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
@@ -15,6 +15,24 @@
         <item name="android:textSize">@dimen/textView_medium_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="FirebaseUITheme" parent="FirebaseUI">
+        <item name="colorPrimary">@color/colorAccentLight</item>
+        <item name="colorPrimaryDark">@color/colorAccentLight</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorBlack</item>
+
+        <item name="titleTextColor">@color/colorBlack</item>
+        <item name="editTextColor">@color/colorBlack</item>
+        <item name="colorControlNormal">@color/colorGrayLight</item>
+        <item name="colorControlActivated">@color/colorBlack</item>
+        <item name="colorControlHighlight">@color/colorBlack</item>
+        <item name="android:windowBackground">@color/colorAccentLight</item>
+
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorAccentLight</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 
 </resources>
