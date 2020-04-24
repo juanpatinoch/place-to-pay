@@ -20,6 +20,11 @@ class ProductDetailActivity : AppCompatActivity() {
 
         product = intent.getSerializableExtra("product") as Products
 
+        setProductData()
+        setEvents()
+    }
+
+    private fun setProductData() {
         findViewById<TextView>(R.id.textViewProductDetailName).text = product?.name
         findViewById<TextView>(R.id.textViewProductDetailPrice).text = product?.priceText
         findViewById<TextView>(R.id.textViewProductDetailDiscount).text = product?.discount
@@ -27,7 +32,9 @@ class ProductDetailActivity : AppCompatActivity() {
 
         Picasso.get().load(product?.image).resize(520, 520).centerInside()
             .into(findViewById<ImageView>(R.id.imageViewProductDetail))
+    }
 
+    private fun setEvents() {
         findViewById<MaterialButton>(R.id.buttonProductDetailBuy).setOnClickListener {
             val intent = Intent(this, PayProduct::class.java)
             intent.putExtra("product", product)
