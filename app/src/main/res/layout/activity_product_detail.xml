@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrayLight"
+    android:background="@color/colorWhite"
     android:fillViewport="true"
     tools:context=".view.ProductDetailActivity">
 
@@ -40,6 +40,7 @@
             android:text="TextView"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/textView_big_size"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetail" />
 
@@ -52,6 +53,7 @@
             android:text="TextView"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/textView_big_size"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetail" />
 

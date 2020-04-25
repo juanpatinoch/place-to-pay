@@ -4,6 +4,8 @@
     <string name="menu_hisotry">Ver transacciones</string>
     <string name="menu_sign_out">Cerrar sesión</string>
 
+    <string name="home_message_error">Ha ocurrido un problema consultando el listado de productos.</string>
+
     <string name="product_detail_buy">Comprar</string>
 
     <string name="pay_product_purchase_details">Detalles de la compra</string>

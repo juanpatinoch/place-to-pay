@@ -84,6 +84,14 @@ class HomeViewModel : ViewModel() {
         return homeObservable.getSignOut()
     }
 
+    fun getLoading(): MutableLiveData<Boolean> {
+        return homeObservable.getLoading()
+    }
+
+    fun getMessageDialog(): MutableLiveData<Int> {
+        return homeObservable.getMessageDialog()
+    }
+
 }
 
 @BindingAdapter("imageUrl")

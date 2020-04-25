@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.placetopay.commerce.R
 import com.placetopay.commerce.model.Products
 import com.placetopay.commerce.util.Commons
 
@@ -15,11 +16,19 @@ class HomeRepository {
 
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseFirestore: FirebaseFirestore? = null
-
     private var products = MutableLiveData<List<Products>>()
     private var firebaseUser = MutableLiveData<FirebaseUser>()
-
     private var signOut = MutableLiveData<Boolean>()
+    private var loading = MutableLiveData<Boolean>()
+    private var message = MutableLiveData<Int>()
+
+    fun getLoading(): MutableLiveData<Boolean> {
+        return loading
+    }
+
+    fun getMessageDialog(): MutableLiveData<Int> {
+        return message
+    }
 
     fun getProducts(): MutableLiveData<List<Products>> {
         return products
@@ -27,39 +36,49 @@ class HomeRepository {
 
     fun callProducts() {
         try {
+            loading.value = true
+
             if (firebaseFirestore == null)
                 firebaseFirestore = FirebaseFirestore.getInstance()
 
             firebaseFirestore?.collection("products")?.addSnapshotListener { result, e ->
-
                 if (e != null) {
-                    Log.e(tag, "Listen failed.", e)
+                    Log.e(tag, e.message)
+                    loading.value = false
+                    message.value = R.string.home_message_error
                     return@addSnapshotListener
-                }
-
-                if (result != null && !result.isEmpty) {
+                } else if (result != null && !result.isEmpty) {
                     var productsList = ArrayList<Products>()
 
                     for (document in result) {
-                        var product = Products()
-                        product.code = document.id
-                        product.name = document.data["name"].toString()
-                        product.description = document.data["description"].toString()
-                        product.price = document.data["price"].toString().toInt()
-                        product.image = document.data["image"].toString()
-                        product.header = document.data["header"].toString()
-                        product.discount = document.data["discount"].toString()
-                        product.priceText = Commons.getCurrencyFormat(document.data["price"].toString().toLong())
+                        try {
+                            var product = Products()
+                            product.code = document.id
+                            product.name = document.data["name"].toString()
+                            product.description = document.data["description"].toString()
+                            product.price = document.data["price"].toString().toInt()
+                            product.image = document.data["image"].toString()
+                            product.header = document.data["header"].toString()
+                            product.discount = document.data["discount"].toString()
+                            product.priceText =
+                                Commons.getCurrencyFormat(document.data["price"].toString().toLong())
 
-                        productsList.add(product)
+                            productsList.add(product)
+                        } catch (e: Exception) {
+                            Log.e(tag, e.message)
+                        }
                     }
                     products.value = productsList
+                    loading.value = false
                 } else {
-                    Log.e(tag, "Current data: null")
+                    loading.value = false
+                    message.value = R.string.home_message_error
                 }
             }
         } catch (e: Exception) {
             Log.e(tag, e.message)
+            loading.value = false
+            message.value = R.string.home_message_error
         }
     }
 
