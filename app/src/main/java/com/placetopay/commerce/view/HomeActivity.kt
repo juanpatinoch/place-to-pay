@@ -52,13 +52,15 @@ class HomeActivity : AppCompatActivity() {
     private fun setupCurrentUserBinding() {
         homeViewModel?.callCurrentUser()
         homeViewModel?.getCurrentUser()?.observe(this, Observer {
-            activityHomeDataBinding?.setVariable(BR.displayName, it.displayName)
+            homeViewModel?.displayName?.value = it.displayName
+
+            activityHomeDataBinding?.setVariable(BR.model, homeViewModel)
             activityHomeDataBinding?.executePendingBindings()
         })
     }
 
     private fun setupOpenMenuClickBinding() {
-        homeViewModel?.getOpenMenu?.observe(this, Observer {
+        homeViewModel?.openMenu?.observe(this, Observer {
             findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(Gravity.LEFT)
         })
     }

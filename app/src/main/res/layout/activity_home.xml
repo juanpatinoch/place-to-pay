@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="displayName"
-            type="String" />
-
-        <variable
             name="model"
             type="com.placetopay.commerce.viewmodel.HomeViewModel" />
     </data>
@@ -74,14 +70,15 @@
                     android:layout_width="@dimen/drawable_icon_button_size_large"
                     android:layout_height="@dimen/drawable_icon_button_size_large"
                     android:layout_margin="16dp"
-                    android:background="@mipmap/ic_menu" />
+                    android:background="@mipmap/ic_menu"
+                    android:onClick="@{()->model.onClickOpenMenu()}" />
 
                 <TextView
                     android:id="@+id/textViewMenuName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:text="@{displayName}"
+                    android:text="@{model.displayName}"
                     android:textAllCaps="true"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/textView_medium_size" />

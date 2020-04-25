@@ -5,4 +5,23 @@
     <string name="menu_sign_out">Cerrar sesión</string>
 
     <string name="product_detail_buy">Comprar</string>
+
+    <string name="pay_product_purchase_details">Detalles de la compra</string>
+    <string name="pay_product_name">Nombre del producto</string>
+    <string name="pay_product_price">Precio del producto</string>
+    <string name="pay_product_payer_info">Datos del tarjetahabiente</string>
+    <string name="pay_product_payer_name">Nombre</string>
+    <string name="pay_product_payer_email">Correo electrónico</string>
+    <string name="pay_product_payer_cellphone">Número celular</string>
+    <string name="pay_product_credit_card_info">Datos de la tarjeta de crédito</string>
+    <string name="pay_product_credit_card_number">Número tarjeta de crédito</string>
+    <string name="pay_product_credit_card_expiration_date">Fecha de vencimiento (MM/AA)</string>
+    <string name="pay_product_credit_card_cvv_code">Código de seguridad (CVV)</string>
+    <string name="pay_product_process_payment">Procesar pago</string>
+
+    <string name="pay_product_message_validateion">Debes llenar todos los campos.</string>
+    <string name="pay_product_message_error">Ha ocurrido un problema procesando el pago. Por favor valida que todos los campos estén diligenciados correctamente.</string>
+
+    <string name="dialog_message_accept">Aceptar</string>
+    <string name="dialog_loading_text">Espere un momento por favor...</string>
 </resources>
