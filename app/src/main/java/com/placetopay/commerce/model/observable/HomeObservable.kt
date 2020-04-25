@@ -35,4 +35,12 @@ class HomeObservable : BaseObservable() {
     fun getSignOut(): MutableLiveData<Boolean> {
         return homeRepository.getSignOut()
     }
+
+    fun getLoading(): MutableLiveData<Boolean> {
+        return homeRepository.getLoading()
+    }
+
+    fun getMessageDialog(): MutableLiveData<Int> {
+        return homeRepository.getMessageDialog()
+    }
 }

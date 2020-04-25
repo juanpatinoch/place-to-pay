@@ -1,6 +1,9 @@
 package com.placetopay.commerce.model
 
-class Transactions {
+import java.io.Serializable
+
+class Transactions : Serializable {
+    var id: String? = null
     var status: String? = null
     var message: String? = null
     var date: String? = null
@@ -8,5 +11,6 @@ class Transactions {
     var reference: String? = null
     var franchiseName: String? = null
     var currency: String? = null
+    var price: String? = null
     var total: Int? = null
 }

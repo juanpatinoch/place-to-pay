@@ -13,9 +13,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGrayLight"
+        android:background="@color/colorWhite"
         android:fillViewport="true"
-        tools:context=".view.PayProduct">
+        tools:context=".view.PayProductActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -155,6 +155,10 @@ class PayProductRepository {
                                 if (jsonObjectAmount.get("currency").isJsonNull) null else jsonObjectAmount.get(
                                     "currency"
                                 ).asString
+                            transaction.price =
+                                if (jsonObjectAmount.get("total").isJsonNull) null else Commons.getCurrencyFormat(
+                                    jsonObjectAmount.get("total").asLong
+                                )
                             transaction.total =
                                 if (jsonObjectAmount.get("total").isJsonNull) null else jsonObjectAmount.get(
                                     "total"
@@ -193,10 +197,11 @@ class PayProductRepository {
                 "currency" to transaction.currency,
                 "total" to transaction.total
             )
-            firebaseFirestore?.collection("transaction")
+            firebaseFirestore?.collection("transactions")
                 ?.add(tran)
                 ?.addOnSuccessListener {
                     loading.value = false
+                    transaction.id = it.id
                     this.transaction.value = transaction
                 }?.addOnFailureListener {
                     loading.value = false
