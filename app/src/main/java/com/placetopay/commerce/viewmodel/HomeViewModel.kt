@@ -2,32 +2,27 @@ package com.placetopay.commerce.viewmodel
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.placetopay.commerce.R
 import com.placetopay.commerce.model.Products
 import com.placetopay.commerce.model.observable.HomeObservable
-import com.placetopay.commerce.util.SingleLiveEvent
 import com.placetopay.commerce.view.adapter.RecyclerProductsAdapter
 import com.squareup.picasso.Picasso
 
 class HomeViewModel : ViewModel() {
 
-    private var homeObservable = HomeObservable()
     private var recyclerProductsAdapter: RecyclerProductsAdapter? = null
-    private val openMenu = SingleLiveEvent<Any>()
-    private var displayName: String? = null
 
+    var homeObservable = HomeObservable()
     var selected: MutableLiveData<Products> = MutableLiveData()
-
-    val getOpenMenu: LiveData<Any>
-        get() = openMenu
+    var openMenu = MutableLiveData<Boolean>()
+    var displayName = MutableLiveData<String>()
 
 
     fun onClickOpenMenu() {
-        openMenu.call()
+        openMenu.value = true
     }
 
     fun callProducts() {
@@ -60,7 +55,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getProductAt(position: Int): Products? {
-        var products: List<Products>? = homeObservable.getProducts().value
+        val products: List<Products>? = homeObservable.getProducts().value
         return products?.get(position)
     }
 

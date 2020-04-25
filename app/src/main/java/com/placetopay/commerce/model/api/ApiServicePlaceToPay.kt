@@ -11,4 +11,7 @@ interface ApiServicePlaceToPay {
     @POST("gateway/information")
     fun getInformation(@Body data: HashMap<String, Any?>): Call<JsonObject>
 
+    @POST("gateway/process")
+    fun process(@Body data: HashMap<String, Any?>): Call<JsonObject>
+
 }
