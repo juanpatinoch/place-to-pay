@@ -6,9 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.placetopay.commerce.model.Products
-import java.text.NumberFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import com.placetopay.commerce.util.Commons
 
 
 class HomeRepository {
@@ -42,10 +40,6 @@ class HomeRepository {
                 if (result != null && !result.isEmpty) {
                     var productsList = ArrayList<Products>()
 
-                    val format: NumberFormat = NumberFormat.getCurrencyInstance()
-                    format.maximumFractionDigits = 0
-                    format.currency = Currency.getInstance("COP")
-
                     for (document in result) {
                         var product = Products()
                         product.code = document.id
@@ -55,8 +49,7 @@ class HomeRepository {
                         product.image = document.data["image"].toString()
                         product.header = document.data["header"].toString()
                         product.discount = document.data["discount"].toString()
-                        product.priceText =
-                            format.format(document.data["price"].toString().toLong())
+                        product.priceText = Commons.getCurrencyFormat(document.data["price"].toString().toLong())
 
                         productsList.add(product)
                     }

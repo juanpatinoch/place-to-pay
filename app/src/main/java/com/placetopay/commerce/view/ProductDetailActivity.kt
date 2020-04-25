@@ -36,9 +36,10 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun setEvents() {
         findViewById<MaterialButton>(R.id.buttonProductDetailBuy).setOnClickListener {
-            val intent = Intent(this, PayProduct::class.java)
+            val intent = Intent(this, PayProductActivity::class.java)
             intent.putExtra("product", product)
             startActivity(intent)
+            finish()
         }
         findViewById<ImageView>(R.id.imageViewProductDetailBack).setOnClickListener {
             finish()

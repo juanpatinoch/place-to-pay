@@ -7,6 +7,7 @@ import java.net.InetAddress
 import java.net.NetworkInterface
 import java.security.MessageDigest
 import java.security.SecureRandom
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,6 +61,13 @@ class Commons {
             } catch (ex: Exception) {
             } // for now eat exceptions
             return ""
+        }
+
+        fun getCurrencyFormat(value: Long?): String {
+            val format: NumberFormat = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 0
+            format.currency = Currency.getInstance("COP")
+            return format.format(value)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.placetopay.commerce.view
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,7 @@ import com.placetopay.commerce.model.Products
 import com.placetopay.commerce.viewmodel.DialogMessageViewModel
 import com.placetopay.commerce.viewmodel.PayProductViewModel
 
-class PayProduct : AppCompatActivity() {
+class PayProductActivity : AppCompatActivity() {
 
     private var alertDialogMessage: AlertDialog? = null
     private var alertDialogLoading: AlertDialog? = null
@@ -45,7 +46,7 @@ class PayProduct : AppCompatActivity() {
         payProductViewModel?.productPriceValue?.value = product?.price
         payProductViewModel?.productPrice?.value = product?.priceText
 
-        payProductViewModel?.creditCardNumber?.value = "4111111111111111"
+        payProductViewModel?.creditCardNumber?.value = "4666666666666669"
         payProductViewModel?.creditCardExpirationDate?.value = "12/24"
         payProductViewModel?.creditCardCVV?.value = "119"
 
@@ -68,7 +69,10 @@ class PayProduct : AppCompatActivity() {
             showDialog(getString(it))
         })
         payProductViewModel?.getTransaction()?.observe(this, Observer {
-            //TODO: Aqui para el proximo activity
+            val intent = Intent(this, PaymentDetailActivity::class.java)
+            intent.putExtra("transaction", it)
+            startActivity(intent)
+            finish()
         })
     }
 

@@ -1,9 +1,10 @@
 package com.placetopay.commerce.model.api
 
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class ApiAdapterPlaceToPay {
 
@@ -11,8 +12,13 @@ class ApiAdapterPlaceToPay {
 
     fun getClientService(): ApiServicePlaceToPay {
 
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.apply { interceptor.level = HttpLoggingInterceptor.Level.BODY }
+        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
         val retrofit = Retrofit.Builder()
             .baseUrl(urlAPI)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
