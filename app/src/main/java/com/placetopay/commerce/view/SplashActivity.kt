@@ -9,33 +9,33 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.firebase.ui.auth.AuthUI
 import com.placetopay.commerce.R
+import com.placetopay.commerce.databinding.ActivitySplashBinding
 import com.placetopay.commerce.viewmodel.SplashViewModel
 
 class SplashActivity : AppCompatActivity() {
 
-    private var splashViewModel: SplashViewModel? = null
+    private var viewModel: SplashViewModel? = null
+    private var binding: ActivitySplashBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        setupBindings(savedInstanceState)
+        setupBindings()
     }
 
-    private fun setupBindings(savedInstanceState: Bundle?) {
-        var activityMainBinding: com.placetopay.commerce.databinding.ActivitySplashBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_splash)
+    private fun setupBindings() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
 
-        splashViewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
-        activityMainBinding.lifecycleOwner = this
-        activityMainBinding.model = splashViewModel
+        viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
+        binding?.model = viewModel
 
         setupObservabelEvents()
     }
 
     private fun setupObservabelEvents() {
-        splashViewModel?.callLoginStoredUser()
-        splashViewModel?.getGoHome()?.observe(this, Observer {
+        viewModel?.callLoginStoredUser()
+        viewModel?.getGoHome()?.observe(this, Observer {
             if (it != null && !it) {
                 val intent = Intent(this, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
