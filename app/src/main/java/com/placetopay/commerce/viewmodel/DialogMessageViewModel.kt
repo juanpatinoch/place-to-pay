@@ -5,14 +5,22 @@ import androidx.lifecycle.ViewModel
 
 class DialogMessageViewModel : ViewModel() {
 
-    var messageText = MutableLiveData<String>()
-    var closeDialog = MutableLiveData<Boolean>()
+    private var message = MutableLiveData<String>()
+    private var close = MutableLiveData<Boolean>()
 
-    fun onClickCloseDialog() {
-        if (closeDialog.value == null)
-            closeDialog.value = true
-        else
-            closeDialog.value = !closeDialog.value!!
+    fun getMessage(): MutableLiveData<String> {
+        return message
     }
 
+    fun setMessage(message: String) {
+        this.message.value = message
+    }
+
+    fun getClose(): MutableLiveData<Boolean> {
+        return close
+    }
+
+    fun setClose(close : Boolean) {
+        this.close.value = close
+    }
 }

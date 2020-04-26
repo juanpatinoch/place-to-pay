@@ -36,6 +36,7 @@ class PaymentDetailActivity : AppCompatActivity() {
         setupRefreshStatusBinding()
         setupLoadingBinding()
         setupMessageDialogBinding()
+        setupCloseActivityBinding()
     }
 
     private fun setupBinding() {
@@ -43,15 +44,14 @@ class PaymentDetailActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_payment_detail)
         paymentDetailViewModel = ViewModelProviders.of(this).get(PaymentDetailViewModel::class.java)
 
-        paymentDetailViewModel?.transaction?.value = transaction
+        paymentDetailViewModel?.setTransaction(transaction)
 
         activityPaymentDetailBinding?.model = paymentDetailViewModel
     }
 
-    private fun setupRefreshStatusBinding(){
+    private fun setupRefreshStatusBinding() {
         paymentDetailViewModel?.getRefreshStatus()?.observe(this, Observer {
-            paymentDetailViewModel?.transaction?.value = it
-
+            paymentDetailViewModel?.setTransaction(it)
             activityPaymentDetailBinding?.setVariable(BR.model, paymentDetailViewModel)
             activityPaymentDetailBinding?.executePendingBindings()
         })
@@ -72,8 +72,14 @@ class PaymentDetailActivity : AppCompatActivity() {
         })
     }
 
+    private fun setupCloseActivityBinding() {
+        paymentDetailViewModel?.getCloseActivity()?.observe(this, Observer {
+            finish()
+        })
+    }
+
     private fun showDialog(messageText: String) {
-        dialogMessageViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
+        /*dialogMessageViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
         dialogMessageViewModel?.messageText?.value = messageText
 
         dialogMessageDataBinding =
@@ -90,7 +96,7 @@ class PaymentDetailActivity : AppCompatActivity() {
                 alertDialogMessage?.dismiss()
                 dialogMessageViewModel?.closeDialog?.value = false
             }
-        })
+        })*/
     }
 
     private fun showDialogLoading() {

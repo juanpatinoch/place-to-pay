@@ -1,12 +1,12 @@
 package com.placetopay.commerce.model.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.JsonObject
 import com.placetopay.commerce.R
+import com.placetopay.commerce.model.PayProduct
 import com.placetopay.commerce.model.Transactions
 import com.placetopay.commerce.model.api.ApiAdapterPlaceToPay
 import com.placetopay.commerce.util.Commons
@@ -20,10 +20,19 @@ class PayProductRepository {
 
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseFirestore: FirebaseFirestore? = null
+
     private var firebaseUser = MutableLiveData<FirebaseUser>()
-    private var message = MutableLiveData<Int>()
     private var transaction = MutableLiveData<Transactions>()
+    private var message = MutableLiveData<Int>()
     private var loading = MutableLiveData<Boolean>()
+
+    fun getMessage(): MutableLiveData<Int> {
+        return message
+    }
+
+    fun setMessage(message: Int) {
+        this.message.value = message
+    }
 
     fun getLoading(): MutableLiveData<Boolean> {
         return loading
@@ -31,10 +40,6 @@ class PayProductRepository {
 
     fun getTransaction(): MutableLiveData<Transactions> {
         return transaction
-    }
-
-    fun getMessage(): MutableLiveData<Int> {
-        return message
     }
 
     fun getCurrentUser(): MutableLiveData<FirebaseUser> {
@@ -48,16 +53,7 @@ class PayProductRepository {
         firebaseUser.value = firebaseAuth?.currentUser
     }
 
-    fun payProduct(
-        productName: String,
-        productPrice: Int,
-        payerName: String,
-        payerEmail: String,
-        payerCellphone: String,
-        creditCardNumber: String,
-        creditCardDate: String,
-        creditCardCVV: String
-    ) {
+    fun payProduct(payProduct: PayProduct) {
         try {
             loading.value = true
             val nonce = Commons.getRandom()
@@ -75,28 +71,28 @@ class PayProductRepository {
             auth["seed"] = seed
 
             val payment = HashMap<String, Any?>()
-            payment["reference"] = productName
+            payment["reference"] = payProduct.productName
 
             val amount = HashMap<String, Any?>()
             amount["currency"] = "COP"
-            amount["total"] = productPrice
+            amount["total"] = payProduct.productPriceValue
 
             payment["amount"] = amount
 
             val instrument = HashMap<String, Any?>()
 
             val card = HashMap<String, Any?>()
-            card["number"] = creditCardNumber.replace(" ", "")
-            card["expirationMonth"] = creditCardDate.split("/")[0]
-            card["expirationYear"] = creditCardDate.split("/")[1]
-            card["cvv"] = creditCardCVV
+            card["number"] = payProduct.creditCardNumber?.replace(" ", "")
+            card["expirationMonth"] = payProduct.creditCardExpirationDate?.split("/")?.get(0)
+            card["expirationYear"] = payProduct.creditCardExpirationDate?.split("/")?.get(1)
+            card["cvv"] = payProduct.creditCardCVV
 
             instrument["card"] = card
 
             val payer = HashMap<String, Any?>()
-            payer["name"] = payerName
-            payer["email"] = payerEmail
-            payer["mobile"] = payerCellphone
+            payer["name"] = payProduct.payerName
+            payer["email"] = payProduct.payerEmail
+            payer["mobile"] = payProduct.payerCellphone
 
             params["auth"] = auth
             params["payment"] = payment
@@ -113,7 +109,6 @@ class PayProductRepository {
             call.enqueue(object : Callback<JsonObject> {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     loading.value = false
-                    Log.e("onFailure", t.message)
                     message.value = R.string.pay_product_message_error
                 }
 
@@ -123,11 +118,8 @@ class PayProductRepository {
                         val errorBody = response.errorBody()
                         if (errorBody != null) {
                             loading.value = false
-                            Log.e("ERRORBODY", errorBody.toString())
                             message.value = R.string.pay_product_message_error
                         } else if (body != null) {
-                            Log.d("BODY", body.toString())
-
                             val transaction = Transactions()
 
                             val jsonObjectStatus = body.getAsJsonObject("status")
@@ -186,19 +178,20 @@ class PayProductRepository {
             if (firebaseAuth == null)
                 firebaseAuth = FirebaseAuth.getInstance()
 
-            val tran = hashMapOf(
-                "uid" to firebaseAuth?.currentUser?.uid,
-                "status" to transaction.status,
-                "message" to transaction.message,
-                "date" to transaction.date,
-                "internalReference" to transaction.internalReference,
-                "reference" to transaction.reference,
-                "franchiseName" to transaction.franchiseName,
-                "currency" to transaction.currency,
-                "total" to transaction.total
-            )
             firebaseFirestore?.collection("transactions")
-                ?.add(tran)
+                ?.add(
+                    hashMapOf(
+                        "email" to firebaseAuth?.currentUser?.email,
+                        "status" to transaction.status,
+                        "message" to transaction.message,
+                        "date" to transaction.date,
+                        "internalReference" to transaction.internalReference,
+                        "reference" to transaction.reference,
+                        "franchiseName" to transaction.franchiseName,
+                        "currency" to transaction.currency,
+                        "total" to transaction.total
+                    )
+                )
                 ?.addOnSuccessListener {
                     loading.value = false
                     transaction.id = it.id

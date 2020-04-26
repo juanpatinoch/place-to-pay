@@ -7,6 +7,8 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
+import com.placetopay.commerce.R
+import com.placetopay.commerce.model.PayProduct
 import com.placetopay.commerce.model.Transactions
 import com.placetopay.commerce.model.observable.PayProductObservable
 import com.placetopay.commerce.util.CreditCardDateFormattingTextWatcher
@@ -15,7 +17,6 @@ import com.placetopay.commerce.util.CreditCardNumberFormattingTextWatcher
 
 class PayProductViewModel : ViewModel() {
 
-    private var payProductObservable = PayProductObservable()
     var productName = MutableLiveData<String>()
     var productPrice = MutableLiveData<String>()
     var productPriceValue = MutableLiveData<Int>()
@@ -25,16 +26,47 @@ class PayProductViewModel : ViewModel() {
     var creditCardNumber = MutableLiveData<String>()
     var creditCardExpirationDate = MutableLiveData<String>()
     var creditCardCVV = MutableLiveData<String>()
-    var closeActivity = MutableLiveData<Boolean>()
-    var showValidationMessage = MutableLiveData<Boolean>()
-    val textWatcherCreditCardNumber = CreditCardNumberFormattingTextWatcher()
-    val textWatcherCreditCardExpirationDate = CreditCardDateFormattingTextWatcher()
 
-    fun onCloseActivityClick() {
-        closeActivity.value = true
+    private var observable = PayProductObservable()
+    private var close = MutableLiveData<Boolean>()
+
+    fun getCreditCardNumberTextWatcher(): TextWatcher {
+        return CreditCardNumberFormattingTextWatcher()
     }
 
-    fun onProcessPaymentClick() {
+    fun getCreditCardDateTextWatcher() : TextWatcher{
+        return CreditCardDateFormattingTextWatcher()
+    }
+
+    fun getClose(): MutableLiveData<Boolean> {
+        return close
+    }
+
+    fun setClose() {
+        close.value = true
+    }
+
+    fun callCurrentUser() {
+        observable.callCurrentUser()
+    }
+
+    fun getCurrentUser(): MutableLiveData<FirebaseUser> {
+        return observable.getCurrentUser()
+    }
+
+    fun getTransaction(): MutableLiveData<Transactions> {
+        return observable.getTransaction()
+    }
+
+    fun getMessage(): MutableLiveData<Int> {
+        return observable.getMessage()
+    }
+
+    fun getLoading(): MutableLiveData<Boolean> {
+        return observable.getLoading()
+    }
+
+    fun onPayClick() {
         val isCreditCardNumberValid = !creditCardNumber.value.isNullOrEmpty()
         val isCreditCardExpirationDateValid = !creditCardExpirationDate.value.isNullOrEmpty()
         val isCreditCardCVVValid = !creditCardCVV.value.isNullOrEmpty()
@@ -46,40 +78,22 @@ class PayProductViewModel : ViewModel() {
             isEmailValid = Patterns.EMAIL_ADDRESS.matcher(payerEmail.value).matches()
 
         if (!isNameValid or !isEmailValid or !isCellphoneValid or !isCreditCardNumberValid or !isCreditCardExpirationDateValid or !isCreditCardCVVValid)
-            showValidationMessage.value = true
+            observable.setMessage(R.string.pay_product_message_validateion)
         else {
-            payProductObservable.payProduct(
-                productName.value.toString(),
-                productPriceValue.value!!,
-                payerName.value.toString(),
-                payerEmail.value.toString(),
-                payerCellphone.value.toString(),
-                creditCardNumber.value.toString(),
-                creditCardExpirationDate.value.toString(),
-                creditCardCVV.value.toString()
-            )
+            val payProduct = PayProduct()
+            payProduct.productName = productName.value
+            payProduct.productPrice = productPrice.value
+            payProduct.productPriceValue = productPriceValue.value
+            payProduct.payerName = payerName.value
+            payProduct.payerEmail = payerEmail.value
+            payProduct.payerCellphone = payerCellphone.value
+            payProduct.creditCardNumber = creditCardNumber.value
+            payProduct.creditCardExpirationDate = creditCardExpirationDate.value
+            payProduct.creditCardCVV = creditCardCVV.value
+
+            observable.payProduct(payProduct)
         }
 
-    }
-
-    fun callCurrentUser() {
-        payProductObservable.callCurrentUser()
-    }
-
-    fun getCurrentUser(): MutableLiveData<FirebaseUser> {
-        return payProductObservable.getCurrentUser()
-    }
-
-    fun getTransaction(): MutableLiveData<Transactions> {
-        return payProductObservable.getTransaction()
-    }
-
-    fun getMessage(): MutableLiveData<Int> {
-        return payProductObservable.getMessage()
-    }
-
-    fun getLoading(): MutableLiveData<Boolean> {
-        return payProductObservable.getLoading()
     }
 }
 

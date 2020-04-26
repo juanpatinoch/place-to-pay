@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/drawable_icon_button_size_large"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:onClick="@{()->model.onCloseActivityClick()}"
+                android:onClick="@{()->model.setClose()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_back" />
@@ -55,7 +55,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:onClick="@{()->model.onProcessPaymentClick()}"
+                android:onClick="@{()->model.onPayClick()}"
                 android:text="@string/pay_product_process_payment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -232,7 +232,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:text="@={model.creditCardNumber}"
-                    app:textChangedListener="@{model.textWatcherCreditCardNumber}" />
+                    app:textChangedListener="@{model.getCreditCardNumberTextWatcher()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -257,7 +257,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:text="@={model.creditCardExpirationDate}"
-                    app:textChangedListener="@{model.textWatcherCreditCardExpirationDate}" />
+                    app:textChangedListener="@{model.getCreditCardDateTextWatcher()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

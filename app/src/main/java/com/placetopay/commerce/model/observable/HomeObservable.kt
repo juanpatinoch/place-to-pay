@@ -8,39 +8,39 @@ import com.placetopay.commerce.model.repository.HomeRepository
 
 class HomeObservable : BaseObservable() {
 
-    private var homeRepository = HomeRepository()
+    private var repository = HomeRepository()
 
     //Repository
     fun callProducts() {
-        homeRepository.callProducts()
+        repository.callProducts()
     }
 
     fun callCurrentUser() {
-        homeRepository.callCurrentUser()
+        repository.callCurrentUser()
     }
 
     fun callSignOut() {
-        homeRepository.callSignOut()
+        repository.callSignOut()
     }
 
     //ViewModel
     fun getProducts(): MutableLiveData<List<Products>> {
-        return homeRepository.getProducts()
+        return repository.getProducts()
     }
 
     fun getCurrentUser(): MutableLiveData<FirebaseUser> {
-        return homeRepository.getCurrentUser()
+        return repository.getCurrentUser()
     }
 
     fun getSignOut(): MutableLiveData<Boolean> {
-        return homeRepository.getSignOut()
+        return repository.getSignOut()
     }
 
     fun getLoading(): MutableLiveData<Boolean> {
-        return homeRepository.getLoading()
+        return repository.getLoading()
     }
 
     fun getMessageDialog(): MutableLiveData<Int> {
-        return homeRepository.getMessageDialog()
+        return repository.getMessageDialog()
     }
 }

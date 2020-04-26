@@ -13,83 +13,96 @@ import com.squareup.picasso.Picasso
 
 class HomeViewModel : ViewModel() {
 
+    private var observable = HomeObservable()
     private var recyclerProductsAdapter: RecyclerProductsAdapter? = null
 
-    var homeObservable = HomeObservable()
-    var selected: MutableLiveData<Products> = MutableLiveData()
-    var openMenu = MutableLiveData<Boolean>()
-    var displayName = MutableLiveData<String>()
+    private var selected: MutableLiveData<Products> = MutableLiveData()
+    private var displayName = MutableLiveData<String>()
+    private var menuOpen = MutableLiveData<Boolean>()
+    private var menuOpenPaymentList = MutableLiveData<Boolean>()
 
-
-    fun onClickOpenMenu() {
-        openMenu.value = true
+    fun getDisplayName(): MutableLiveData<String> {
+        return displayName
     }
 
-    fun callProducts() {
-        homeObservable.callProducts()
+    fun setDisplayName(displayName: String?) {
+        this.displayName.value = displayName
+    }
+
+    fun getMenuOpen(): MutableLiveData<Boolean> {
+        return menuOpen
+    }
+
+    fun setMenuOpen() {
+        menuOpen.value = true
+    }
+
+    fun getMenuOpenPaymentList(): MutableLiveData<Boolean> {
+        return menuOpenPaymentList
+    }
+
+    fun setMenuOpenPaymentList() {
+        menuOpenPaymentList.value = true
     }
 
     fun getProducts(): MutableLiveData<List<Products>> {
-        return homeObservable.getProducts()
+        return observable.getProducts()
     }
 
-    fun setProductsInRecyclerAdapter(products: List<Products>) {
-        if (recyclerProductsAdapter == null)
-            recyclerProductsAdapter =
-                RecyclerProductsAdapter(
-                    this,
-                    R.layout.card_product
-                )
-        recyclerProductsAdapter?.setProductsList(products)
-        recyclerProductsAdapter?.notifyDataSetChanged()
+    fun callProducts() {
+        observable.callProducts()
     }
 
     fun getRecyclerProductsAdapter(): RecyclerProductsAdapter? {
         if (recyclerProductsAdapter == null)
-            recyclerProductsAdapter =
-                RecyclerProductsAdapter(
-                    this,
-                    R.layout.card_product
-                )
+            recyclerProductsAdapter = RecyclerProductsAdapter(this, R.layout.card_product)
+
         return recyclerProductsAdapter
     }
 
-    fun getProductAt(position: Int): Products? {
-        val products: List<Products>? = homeObservable.getProducts().value
-        return products?.get(position)
+    fun setProductsInRecyclerAdapter(products: List<Products>) {
+        if (recyclerProductsAdapter == null)
+            recyclerProductsAdapter = RecyclerProductsAdapter(this, R.layout.card_product)
+
+        recyclerProductsAdapter?.setProductsList(products)
+        recyclerProductsAdapter?.notifyDataSetChanged()
     }
 
     fun getProductSelected(): MutableLiveData<Products> {
         return selected
     }
 
-    fun onProductClick(index: Int) {
-        val coupon = getProductAt(index)
-        selected.value = coupon
+    fun setProductSelected(index: Int) {
+        selected.value = getProductAt(index)
     }
 
-    fun callCurrentUser() {
-        homeObservable.callCurrentUser()
+    fun getProductAt(position: Int): Products? {
+        val products: List<Products>? = observable.getProducts().value
+        return products?.get(position)
     }
 
     fun getCurrentUser(): MutableLiveData<FirebaseUser>? {
-        return homeObservable.getCurrentUser()
+        return observable.getCurrentUser()
     }
 
-    fun callSignOut() {
-        homeObservable.callSignOut()
+    fun callCurrentUser() {
+        observable.callCurrentUser()
     }
 
     fun getSignOut(): MutableLiveData<Boolean> {
-        return homeObservable.getSignOut()
+        return observable.getSignOut()
+    }
+
+    fun callSignOut() {
+        observable.callSignOut()
     }
 
     fun getLoading(): MutableLiveData<Boolean> {
-        return homeObservable.getLoading()
+        return observable.getLoading()
     }
 
-    fun getMessageDialog(): MutableLiveData<Int> {
-        return homeObservable.getMessageDialog()
+    fun getMessage(): MutableLiveData<Int> {
+        return observable.getMessageDialog()
     }
 
 }

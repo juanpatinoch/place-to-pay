@@ -12,12 +12,11 @@ import com.placetopay.commerce.util.Commons
 
 class HomeRepository {
 
-    private val tag = "ProductsRepository"
-
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseFirestore: FirebaseFirestore? = null
-    private var products = MutableLiveData<List<Products>>()
+
     private var firebaseUser = MutableLiveData<FirebaseUser>()
+    private var products = MutableLiveData<List<Products>>()
     private var signOut = MutableLiveData<Boolean>()
     private var loading = MutableLiveData<Boolean>()
     private var message = MutableLiveData<Int>()
@@ -41,42 +40,40 @@ class HomeRepository {
             if (firebaseFirestore == null)
                 firebaseFirestore = FirebaseFirestore.getInstance()
 
-            firebaseFirestore?.collection("products")?.addSnapshotListener { result, e ->
-                if (e != null) {
-                    Log.e(tag, e.message)
-                    loading.value = false
-                    message.value = R.string.home_message_error
-                    return@addSnapshotListener
-                } else if (result != null && !result.isEmpty) {
-                    var productsList = ArrayList<Products>()
+            firebaseFirestore
+                ?.collection("products")
+                ?.addSnapshotListener { result, e ->
+                    if (e != null) {
+                        loading.value = false
+                        message.value = R.string.home_message_error
+                    } else if (result != null && !result.isEmpty) {
+                        val productsList = ArrayList<Products>()
 
-                    for (document in result) {
-                        try {
-                            var product = Products()
-                            product.code = document.id
-                            product.name = document.data["name"].toString()
-                            product.description = document.data["description"].toString()
-                            product.price = document.data["price"].toString().toInt()
-                            product.image = document.data["image"].toString()
-                            product.header = document.data["header"].toString()
-                            product.discount = document.data["discount"].toString()
-                            product.priceText =
-                                Commons.getCurrencyFormat(document.data["price"].toString().toLong())
+                        for (document in result) {
+                            try {
+                                val product = Products()
+                                product.code = document.id
+                                product.name = if (document.data["name"] == null) null else document.data["name"].toString()
+                                product.description = if (document.data["description"] == null) null else document.data["description"].toString()
+                                product.price = if (document.data["price"] == null) null else document.data["price"].toString().toInt()
+                                product.image = if (document.data["image"] == null) null else document.data["image"].toString()
+                                product.header = if (document.data["header"] == null) null else document.data["header"].toString()
+                                product.discount = if (document.data["discount"] == null) null else document.data["discount"].toString()
+                                product.priceText = if (document.data["price"] == null) null else Commons.getCurrencyFormat(document.data["price"].toString().toLong())
 
-                            productsList.add(product)
-                        } catch (e: Exception) {
-                            Log.e(tag, e.message)
+                                productsList.add(product)
+                            } catch (e: Exception) {
+                                Log.e("Error", e.message)
+                            }
                         }
+                        products.value = productsList
+                        loading.value = false
+                    } else {
+                        loading.value = false
+                        message.value = R.string.home_message_error
                     }
-                    products.value = productsList
-                    loading.value = false
-                } else {
-                    loading.value = false
-                    message.value = R.string.home_message_error
                 }
-            }
         } catch (e: Exception) {
-            Log.e(tag, e.message)
             loading.value = false
             message.value = R.string.home_message_error
         }
