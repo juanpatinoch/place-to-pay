@@ -39,7 +39,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
-            android:onClick="@{()->model.setClose()}"
+            android:onClick="@{()->model.setClose(true)}"
             android:text="@string/dialog_message_accept"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

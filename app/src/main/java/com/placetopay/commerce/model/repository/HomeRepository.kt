@@ -59,7 +59,7 @@ class HomeRepository {
                                 product.image = if (document.data["image"] == null) null else document.data["image"].toString()
                                 product.header = if (document.data["header"] == null) null else document.data["header"].toString()
                                 product.discount = if (document.data["discount"] == null) null else document.data["discount"].toString()
-                                product.priceText = if (document.data["priceText"] == null) null else Commons.getCurrencyFormat(document.data["priceText"].toString().toLong())
+                                product.priceText = if (document.data["price"] == null) null else Commons.getCurrencyFormat(document.data["price"].toString().toLong())
 
                                 productsList.add(product)
                             } catch (e: Exception) {

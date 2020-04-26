@@ -112,7 +112,8 @@ class HomeActivity : AppCompatActivity() {
         dialogViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
         dialogViewModel?.setMessage(messageText)
 
-        dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_message, null, false)
+        dialogBinding =
+            DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_message, null, false)
         dialogBinding?.model = dialogViewModel
 
         val builder = AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert)
@@ -120,8 +121,12 @@ class HomeActivity : AppCompatActivity() {
         builder.setCancelable(false)
         alertDialogMessage = builder.show()
 
-        dialogViewModel?.getClose()?.observe(this, Observer {
-            alertDialogMessage?.dismiss()
+        dialogViewModel?.getClose()?.observe(this@HomeActivity, Observer {
+            if (it) {
+                alertDialogMessage?.dismiss()
+                dialogViewModel?.getClose()?.removeObservers(this@HomeActivity)
+                dialogViewModel?.setClose(false)
+            }
         })
     }
 

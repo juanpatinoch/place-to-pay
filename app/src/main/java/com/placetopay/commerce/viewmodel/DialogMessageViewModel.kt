@@ -20,7 +20,7 @@ class DialogMessageViewModel : ViewModel() {
         return close
     }
 
-    fun setClose() {
-        close.value = true
+    fun setClose(close : Boolean) {
+        this.close.value = close
     }
 }
