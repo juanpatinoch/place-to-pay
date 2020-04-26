@@ -41,7 +41,7 @@
     </style>
 
     <style name="TextInputEditTextTheme" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textColorHint">@color/colorAccent</item>
         <item name="android:textSize">@dimen/textView_medium_size</item>
         <item name="android:maxLines">1</item>

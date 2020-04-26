@@ -2,17 +2,20 @@ package com.placetopay.commerce.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.placetopay.commerce.R
+import com.placetopay.commerce.databinding.ActivityProductDetailBinding
 import com.placetopay.commerce.model.Products
-import com.squareup.picasso.Picasso
+import com.placetopay.commerce.viewmodel.ProductDetailViewModel
 
 class ProductDetailActivity : AppCompatActivity() {
 
     private var product: Products? = null
+    private var viewModel: ProductDetailViewModel? = null
+    private var binding: ActivityProductDetailBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,29 +23,31 @@ class ProductDetailActivity : AppCompatActivity() {
 
         product = intent.getSerializableExtra("product") as Products
 
-        setProductData()
-        setEvents()
+        setupBindings()
     }
 
-    private fun setProductData() {
-        findViewById<TextView>(R.id.textViewProductDetailName).text = product?.name
-        findViewById<TextView>(R.id.textViewProductDetailPrice).text = product?.priceText
-        findViewById<TextView>(R.id.textViewProductDetailDiscount).text = product?.discount
-        findViewById<TextView>(R.id.textViewProductDetailDescription).text = product?.description
+    private fun setupBindings() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
+        viewModel = ViewModelProviders.of(this).get(ProductDetailViewModel::class.java)
+        viewModel?.setProduct(product)
+        binding?.model = viewModel
 
-        Picasso.get().load(product?.image).resize(520, 520).centerInside()
-            .into(findViewById<ImageView>(R.id.imageViewProductDetail))
+        closeBinding()
+        buyBinding()
     }
 
-    private fun setEvents() {
-        findViewById<MaterialButton>(R.id.buttonProductDetailBuy).setOnClickListener {
+    private fun closeBinding() {
+        viewModel?.getClose()?.observe(this, Observer {
+            finish()
+        })
+    }
+
+    private fun buyBinding() {
+        viewModel?.getBuy()?.observe(this, Observer {
             val intent = Intent(this, PayProductActivity::class.java)
             intent.putExtra("product", product)
             startActivity(intent)
             finish()
-        }
-        findViewById<ImageView>(R.id.imageViewProductDetailBack).setOnClickListener {
-            finish()
-        }
+        })
     }
 }

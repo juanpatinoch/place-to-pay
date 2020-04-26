@@ -1,106 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:fillViewport="true"
-    tools:context=".view.ProductDetailActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="model"
+            type="com.placetopay.commerce.viewmodel.ProductDetailViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:fillViewport="true"
+        tools:context=".view.ProductDetailActivity">
 
-        <ImageView
-            android:id="@+id/imageViewProductDetailBack"
-            android:layout_width="@dimen/drawable_icon_button_size_large"
-            android:layout_height="@dimen/drawable_icon_button_size_large"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_back" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imageViewProductDetail"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetailBack" />
+            <ImageView
+                android:id="@+id/imageViewProductDetailBack"
+                android:layout_width="@dimen/drawable_icon_button_size_large"
+                android:layout_height="@dimen/drawable_icon_button_size_large"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:onClick="@{()->model.setClose()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_back" />
 
-        <TextView
-            android:id="@+id/textViewProductDetailPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/textView_big_size"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetail" />
+            <ImageView
+                android:id="@+id/imageViewProductDetail"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                app:imageUrl="@{model.product.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetailBack" />
 
-        <TextView
-            android:id="@+id/textViewProductDetailDiscount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/textView_big_size"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetail" />
+            <TextView
+                android:id="@+id/textViewProductDetailPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@{model.product.priceText}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/textView_big_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetail" />
 
-        <TextView
-            android:id="@+id/textViewProductDetailName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/textView_big_size"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewProductDetailBack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewProductDetailBack"
-            app:layout_constraintTop_toTopOf="@+id/imageViewProductDetailBack" />
+            <TextView
+                android:id="@+id/textViewProductDetailDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{model.product.discount}"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/textView_big_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewProductDetail" />
 
-        <TextView
-            android:id="@+id/textViewProductDetailDescription"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:inputType="textMultiLine"
-            android:text="TextView"
-            android:textColor="@color/colorGray"
-            android:textSize="@dimen/textView_medium_size"
-            app:layout_constraintBottom_toTopOf="@+id/buttonProductDetailBuy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewProductDetailPrice" />
+            <TextView
+                android:id="@+id/textViewProductDetailName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{model.product.name}"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/textView_big_size"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewProductDetailBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewProductDetailBack"
+                app:layout_constraintTop_toTopOf="@+id/imageViewProductDetailBack" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonProductDetailBuy"
-            style="@style/RaisedButtonYellow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/product_detail_buy"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/textViewProductDetailDescription"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:inputType="textMultiLine"
+                android:text="@{model.product.description}"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/textView_medium_size"
+                app:layout_constraintBottom_toTopOf="@+id/buttonProductDetailBuy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProductDetailPrice" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonProductDetailBuy"
+                style="@style/RaisedButtonYellow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:onClick="@{()->model.setBuy()}"
+                android:text="@string/product_detail_buy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
