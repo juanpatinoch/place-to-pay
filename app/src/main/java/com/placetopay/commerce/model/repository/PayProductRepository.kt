@@ -187,7 +187,7 @@ class PayProductRepository {
                 firebaseAuth = FirebaseAuth.getInstance()
 
             val tran = hashMapOf(
-                "uid" to firebaseAuth?.currentUser?.uid,
+                "email" to firebaseAuth?.currentUser?.email,
                 "status" to transaction.status,
                 "message" to transaction.message,
                 "date" to transaction.date,

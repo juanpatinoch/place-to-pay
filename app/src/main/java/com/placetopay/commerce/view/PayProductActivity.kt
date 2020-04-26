@@ -3,7 +3,6 @@ package com.placetopay.commerce.view
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -15,6 +14,7 @@ import com.placetopay.commerce.viewmodel.DialogMessageViewModel
 import com.placetopay.commerce.viewmodel.PayProductViewModel
 
 class PayProductActivity : AppCompatActivity() {
+
 
     private var alertDialogMessage: AlertDialog? = null
     private var alertDialogLoading: AlertDialog? = null
@@ -46,7 +46,7 @@ class PayProductActivity : AppCompatActivity() {
         payProductViewModel?.productPriceValue?.value = product?.price
         payProductViewModel?.productPrice?.value = product?.priceText
 
-        payProductViewModel?.creditCardNumber?.value = "4666666666666669"
+        payProductViewModel?.creditCardNumber?.value = "111111111111111"
         payProductViewModel?.creditCardExpirationDate?.value = "12/24"
         payProductViewModel?.creditCardCVV?.value = "119"
 
@@ -66,7 +66,7 @@ class PayProductActivity : AppCompatActivity() {
                 hideDialogLoading()
         })
         payProductViewModel?.getMessage()?.observe(this, Observer {
-            showDialog(getString(it))
+            //showDialog(getString(it))
         })
         payProductViewModel?.getTransaction()?.observe(this, Observer {
             val intent = Intent(this, PaymentDetailActivity::class.java)
@@ -76,9 +76,11 @@ class PayProductActivity : AppCompatActivity() {
         })
     }
 
+    var contador: Int? = null
+
     private fun setupValidationBinding() {
         payProductViewModel?.showValidationMessage?.observe(this, Observer {
-            showDialog(getString(R.string.pay_product_message_validateion))
+            //showDialog(getString(R.string.pay_product_message_validateion))
         })
     }
 
@@ -102,8 +104,8 @@ class PayProductActivity : AppCompatActivity() {
         })
     }
 
-    private fun showDialog(messageText: String) {
-        dialogMessageViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
+    /*private fun showDialog(messageText: String) {
+        *//*dialogMessageViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
         dialogMessageViewModel?.messageText?.value = messageText
 
         dialogMessageDataBinding =
@@ -120,8 +122,8 @@ class PayProductActivity : AppCompatActivity() {
                 alertDialogMessage?.dismiss()
                 dialogMessageViewModel?.closeDialog?.value = false
             }
-        })
-    }
+        })*//*
+    }*/
 
     private fun showDialogLoading() {
         val inflater = layoutInflater

@@ -6,31 +6,31 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.placetopay.commerce.BR
-import com.placetopay.commerce.model.Products
-import com.placetopay.commerce.viewmodel.HomeViewModel
+import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.viewmodel.PaymentListViewModel
 
-class RecyclerProductsAdapter(var homeViewModel: HomeViewModel, var resource: Int) :
-    RecyclerView.Adapter<RecyclerProductsAdapter.CardProductHolder>() {
+class RecyclerPaymentsAdapter(var paymentListViewModel: PaymentListViewModel, var resource: Int) :
+    RecyclerView.Adapter<RecyclerPaymentsAdapter.CardPaymentHolder>() {
 
-    private var products: List<Products>? = null
+    private var transactions: List<Transactions>? = null
 
-    fun setProductsList(productsList: List<Products>) {
-        this.products = productsList
+    fun setTransactionsList(transactions: List<Transactions>) {
+        this.transactions = transactions
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardProductHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardPaymentHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding =
             DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
-        return CardProductHolder(binding)
+        return CardPaymentHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return products?.size ?: 0
+        return transactions?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: CardProductHolder, position: Int) {
-        holder.setDataCard(homeViewModel, position)
+    override fun onBindViewHolder(holder: CardPaymentHolder, position: Int) {
+        holder.setDataCard(paymentListViewModel, position)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -41,7 +41,7 @@ class RecyclerProductsAdapter(var homeViewModel: HomeViewModel, var resource: In
         return resource
     }
 
-    class CardProductHolder(viewDataBinding: ViewDataBinding) :
+    class CardPaymentHolder(viewDataBinding: ViewDataBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
 
         private var viewDataBinding: ViewDataBinding? = null
@@ -50,8 +50,8 @@ class RecyclerProductsAdapter(var homeViewModel: HomeViewModel, var resource: In
             this.viewDataBinding = viewDataBinding
         }
 
-        fun setDataCard(productsViewModel: HomeViewModel, position: Int) {
-            viewDataBinding?.setVariable(BR.model, productsViewModel)
+        fun setDataCard(paymentListViewModel: PaymentListViewModel, position: Int) {
+            viewDataBinding?.setVariable(BR.model, paymentListViewModel)
             viewDataBinding?.setVariable(BR.position, position)
             viewDataBinding?.executePendingBindings()
         }

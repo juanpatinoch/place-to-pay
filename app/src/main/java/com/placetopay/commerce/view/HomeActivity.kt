@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.placetopay.commerce.BR
 import com.placetopay.commerce.R
+import com.placetopay.commerce.databinding.ActivityHomeBinding
+import com.placetopay.commerce.databinding.DialogMessageBinding
 import com.placetopay.commerce.viewmodel.DialogMessageViewModel
 import com.placetopay.commerce.viewmodel.HomeViewModel
 
@@ -21,64 +23,47 @@ class HomeActivity : AppCompatActivity() {
     private var alertDialogMessage: AlertDialog? = null
     private var alertDialogLoading: AlertDialog? = null
 
-    private var homeViewModel: HomeViewModel? = null
-    private var activityHomeDataBinding: com.placetopay.commerce.databinding.ActivityHomeBinding? =
-        null
+    private var viewModel: HomeViewModel? = null
+    private var binding: ActivityHomeBinding? = null
 
-    private var dialogMessageViewModel: DialogMessageViewModel? = null
-    private var dialogMessageDataBinding: com.placetopay.commerce.databinding.DialogMessageBinding? =
-        null
+    private var dialogViewModel: DialogMessageViewModel? = null
+    private var dialogBinding: DialogMessageBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        setupBindings(savedInstanceState)
+        setupBindings()
     }
 
-    private fun setupBindings(savedInstanceState: Bundle?) {
-        activityHomeDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        activityHomeDataBinding?.model = homeViewModel
+    private fun setupBindings() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        binding?.model = viewModel
 
-        setupOpenMenuClickBinding()
-        setupSignOutClickBinding()
-        setupCurrentUserBinding()
-        setupProductsBinding()
-        setupLoadingBinding()
-        setupMessageDialogBinding()
+        openMenuBinding()
+        openPaymentListBinding()
+        signOutBinding()
+        currentUserBinding()
+        productsBinding()
+        loadingBinding()
+        messageBinding()
     }
 
-    private fun setupProductsBinding() {
-        homeViewModel?.callProducts()
-        homeViewModel?.getProducts()?.observe(this, Observer {
-            homeViewModel?.setProductsInRecyclerAdapter(it)
-        })
-        homeViewModel?.getProductSelected()?.observe(this, Observer {
-            val intent = Intent(this, ProductDetailActivity::class.java)
-            intent.putExtra("product", it)
-            startActivity(intent)
-        })
-    }
-
-    private fun setupCurrentUserBinding() {
-        homeViewModel?.callCurrentUser()
-        homeViewModel?.getCurrentUser()?.observe(this, Observer {
-            homeViewModel?.displayName?.value = it.displayName
-
-            activityHomeDataBinding?.setVariable(BR.model, homeViewModel)
-            activityHomeDataBinding?.executePendingBindings()
-        })
-    }
-
-    private fun setupOpenMenuClickBinding() {
-        homeViewModel?.openMenu?.observe(this, Observer {
+    private fun openMenuBinding() {
+        viewModel?.getMenuOpen()?.observe(this, Observer {
             findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(Gravity.LEFT)
         })
     }
 
-    private fun setupSignOutClickBinding() {
-        homeViewModel?.getSignOut()?.observe(this, Observer {
+    private fun openPaymentListBinding() {
+        viewModel?.getMenuOpenPaymentList()?.observe(this, Observer {
+            startActivity(Intent(this, PaymentListActivity::class.java))
+        })
+    }
+
+    private fun signOutBinding() {
+        viewModel?.getSignOut()?.observe(this, Observer {
             val intent = Intent(this, SplashActivity::class.java)
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -86,14 +71,36 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupMessageDialogBinding() {
-        homeViewModel?.getMessageDialog()?.observe(this, Observer {
+    private fun productsBinding() {
+        viewModel?.callProducts()
+        viewModel?.getProducts()?.observe(this, Observer {
+            viewModel?.setProductsInRecyclerAdapter(it)
+        })
+        viewModel?.getProductSelected()?.observe(this, Observer {
+            val intent = Intent(this, ProductDetailActivity::class.java)
+            intent.putExtra("product", it)
+            startActivity(intent)
+        })
+    }
+
+    private fun currentUserBinding() {
+        viewModel?.callCurrentUser()
+        viewModel?.getCurrentUser()?.observe(this, Observer {
+            viewModel?.setDisplayName(it.displayName)
+
+            binding?.setVariable(BR.model, viewModel)
+            binding?.executePendingBindings()
+        })
+    }
+
+    private fun messageBinding() {
+        viewModel?.getMessage()?.observe(this, Observer {
             showDialog(getString(it))
         })
     }
 
-    private fun setupLoadingBinding() {
-        homeViewModel?.getLoading()?.observe(this, Observer {
+    private fun loadingBinding() {
+        viewModel?.getLoading()?.observe(this, Observer {
             if (it)
                 showDialogLoading()
             else
@@ -102,23 +109,19 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showDialog(messageText: String) {
-        dialogMessageViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
-        dialogMessageViewModel?.messageText?.value = messageText
+        dialogViewModel = ViewModelProviders.of(this).get(DialogMessageViewModel::class.java)
+        dialogViewModel?.setMessage(messageText)
 
-        dialogMessageDataBinding =
-            DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_message, null, false)
-        dialogMessageDataBinding?.model = dialogMessageViewModel
+        dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_message, null, false)
+        dialogBinding?.model = dialogViewModel
 
         val builder = AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert)
-        builder.setView(dialogMessageDataBinding?.root)
+        builder.setView(dialogBinding?.root)
         builder.setCancelable(false)
         alertDialogMessage = builder.show()
 
-        dialogMessageViewModel?.closeDialog?.observe(this, Observer {
-            if (it) {
-                alertDialogMessage?.dismiss()
-                dialogMessageViewModel?.closeDialog?.value = false
-            }
+        dialogViewModel?.getClose()?.observe(this, Observer {
+            alertDialogMessage?.dismiss()
         })
     }
 
