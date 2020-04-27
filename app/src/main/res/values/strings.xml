@@ -37,6 +37,9 @@
 
     <string name="payment_list_title">Listado de pagos</string>
     <string name="payment_list_delete">Eliminar</string>
+    <string name="payment_list_get_message_error">Ha ocurrido un problema consultando el listado de pagos.</string>
+    <string name="payment_list_delete_message_error">No se pudo eliminar el pago, inténtelo nuevamente.</string>
+    <string name="payment_list_delete_message_success">Registro eliminado exitosamente.</string>
 
     <string name="dialog_message_accept">Aceptar</string>
     <string name="dialog_loading_text">Espere un momento por favor...</string>

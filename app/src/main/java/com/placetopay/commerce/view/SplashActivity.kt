@@ -30,10 +30,10 @@ class SplashActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(SplashViewModel::class.java)
         binding?.model = viewModel
 
-        setupObservabelEvents()
+        loginBinding()
     }
 
-    private fun setupObservabelEvents() {
+    private fun loginBinding() {
         viewModel?.callLoginStoredUser()
         viewModel?.getGoHome()?.observe(this, Observer {
             if (it != null && !it) {
