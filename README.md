@@ -1,4 +1,4 @@
-# Place to Pay MVVM - Android
+# Place to Pay - MVVM - Android
 
 _Este proyecto es desarrollado en Android con Kotlin para lograr una integración con las APIs de **Place to Pay.**
 Para poder lograr esta app se utilizó como autenticación **Firebase Authentication** y como base de datos **Firebase Firestore.**
@@ -6,6 +6,8 @@ El escenario utilizado es una aplicación de compra de productos que se deben pa
 Para la realización se utilizó arquitectura MVVM._
 
 ## Comencemos 🚀
+
+_En la ruta **place-to-pay/apk/** se encuentra el APK para que lo instales._
 
 _Para obtener una copia del proyecto, en la parte superior derecha puedes clonar o descargar el proyecto, dando click en el botón **Clone or download**_
 
