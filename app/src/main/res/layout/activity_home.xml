@@ -34,6 +34,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_menu" />
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/app_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/textView_big_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewMenu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewMenu"
+                app:layout_constraintTop_toTopOf="@+id/imageViewMenu" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHomeProducts"
                 android:layout_width="0dp"
@@ -80,7 +94,8 @@
                     android:text="@{model.displayName}"
                     android:textAllCaps="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/textView_medium_size" />
+                    android:textSize="@dimen/textView_big_size"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -115,8 +130,8 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
                             android:text="@string/menu_hisotry"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/textView_medium_size" />
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textView_big_size" />
 
                     </RelativeLayout>
 
@@ -131,8 +146,8 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
                             android:text="@string/menu_sign_out"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/textView_medium_size" />
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textView_big_size" />
 
                     </RelativeLayout>
 

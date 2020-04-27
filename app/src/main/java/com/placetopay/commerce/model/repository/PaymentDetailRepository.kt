@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.JsonObject
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.api.ApiAdapterPlaceToPay
 import com.placetopay.commerce.util.Commons
 import com.placetopay.commerce.util.Constants
@@ -65,7 +65,6 @@ class PaymentDetailRepository {
 
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     try {
-                        loading.value = false
                         val body = response.body()
                         val errorBody = response.errorBody()
 

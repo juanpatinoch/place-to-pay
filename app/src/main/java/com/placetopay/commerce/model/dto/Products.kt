@@ -1,4 +1,4 @@
-package com.placetopay.commerce.model
+package com.placetopay.commerce.model.dto
 
 import java.io.Serializable
 

@@ -100,13 +100,18 @@
 
             <TextView
                 android:id="@+id/textViewPayProductName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@{model.productName}"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/textView_medium_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -117,8 +122,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@{model.productPrice}"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/textView_medium_size"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 

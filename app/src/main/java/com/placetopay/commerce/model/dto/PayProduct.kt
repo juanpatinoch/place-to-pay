@@ -1,4 +1,4 @@
-package com.placetopay.commerce.model
+package com.placetopay.commerce.model.dto
 
 class PayProduct {
     var productName: String? = null

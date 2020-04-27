@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.placetopay.commerce.BR
-import com.placetopay.commerce.model.Products
+import com.placetopay.commerce.model.dto.Products
 import com.placetopay.commerce.viewmodel.HomeViewModel
 
 class RecyclerProductsAdapter(var homeViewModel: HomeViewModel, var resource: Int) :

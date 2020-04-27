@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.PayProduct
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.PayProduct
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.observable.PayProductObservable
 import com.placetopay.commerce.util.CreditCardDateFormattingTextWatcher
 import com.placetopay.commerce.util.CreditCardNumberFormattingTextWatcher

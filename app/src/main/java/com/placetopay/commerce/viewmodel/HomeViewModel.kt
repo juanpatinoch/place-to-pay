@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.Products
+import com.placetopay.commerce.model.dto.Products
 import com.placetopay.commerce.model.observable.HomeObservable
 import com.placetopay.commerce.view.adapter.RecyclerProductsAdapter
 import com.squareup.picasso.Picasso

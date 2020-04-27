@@ -3,8 +3,8 @@ package com.placetopay.commerce.model.observable
 import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.placetopay.commerce.model.PayProduct
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.PayProduct
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.repository.PayProductRepository
 
 class PayProductObservable : BaseObservable() {

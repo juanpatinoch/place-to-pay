@@ -4,7 +4,7 @@ import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.observable.PaymentDetailObservable
 
 
@@ -12,7 +12,7 @@ class PaymentDetailViewModel : ViewModel() {
 
     private var paymentDetailObservable = PaymentDetailObservable()
     private var transaction = MutableLiveData<Transactions>()
-    private var closeActivity = MutableLiveData<Boolean>()
+    private var close = MutableLiveData<Boolean>()
 
     fun setTransaction(transaction: Transactions?) {
         this.transaction.value = transaction
@@ -22,12 +22,12 @@ class PaymentDetailViewModel : ViewModel() {
         return transaction
     }
 
-    fun getCloseActivity(): MutableLiveData<Boolean> {
-        return closeActivity
+    fun getClose(): MutableLiveData<Boolean> {
+        return close
     }
 
-    fun setCloseActivity() {
-        closeActivity.value = true
+    fun setClose() {
+        close.value = true
     }
 
     fun onRefreshClick() {

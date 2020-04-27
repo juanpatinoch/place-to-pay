@@ -6,8 +6,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.JsonObject
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.PayProduct
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.PayProduct
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.api.ApiAdapterPlaceToPay
 import com.placetopay.commerce.util.Commons
 import com.placetopay.commerce.util.Constants
@@ -120,7 +120,8 @@ class PayProductRepository {
                             loading.value = false
                             message.value = R.string.pay_product_message_error
                         } else if (body != null) {
-                            val transaction = Transactions()
+                            val transaction =
+                                Transactions()
 
                             val jsonObjectStatus = body.getAsJsonObject("status")
                             transaction.status =

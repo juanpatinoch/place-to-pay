@@ -2,24 +2,32 @@ package com.placetopay.commerce.model.observable
 
 import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.repository.PaymentListRepository
 
 class PaymentListObservable : BaseObservable() {
 
-    private var paymentListRepository = PaymentListRepository()
+    private var repository = PaymentListRepository()
 
     //Repository
     fun callTransactions() {
-        paymentListRepository.callTransactions()
+        repository.callTransactions()
     }
 
-    fun deleteTransaction(id: String){
-        paymentListRepository.deleteTransaction(id)
+    fun deleteTransaction(id: String) {
+        repository.deleteTransaction(id)
     }
 
     //ViewModel
     fun getTransactions(): MutableLiveData<List<Transactions>> {
-        return paymentListRepository.getTransactions()
+        return repository.getTransactions()
+    }
+
+    fun getLoading(): MutableLiveData<Boolean> {
+        return repository.getLoading()
+    }
+
+    fun getMessage(): MutableLiveData<Int> {
+        return repository.getMessage()
     }
 }

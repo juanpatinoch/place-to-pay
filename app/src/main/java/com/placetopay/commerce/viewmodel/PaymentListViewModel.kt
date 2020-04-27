@@ -3,27 +3,44 @@ package com.placetopay.commerce.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.observable.PaymentListObservable
 import com.placetopay.commerce.view.adapter.RecyclerPaymentsAdapter
 
 class PaymentListViewModel : ViewModel() {
 
-    private var selected: MutableLiveData<Transactions> = MutableLiveData()
+    private var observable = PaymentListObservable()
     private var recyclerPaymentsAdapter: RecyclerPaymentsAdapter? = null
-    private var paymentListObservable = PaymentListObservable()
+    private var selected: MutableLiveData<Transactions> = MutableLiveData()
+    private var close = MutableLiveData<Boolean>()
 
-    fun getTransactionAtPosition(position: Int): Transactions? {
-        val products: List<Transactions>? = paymentListObservable.getTransactions().value
-        return products?.get(position)
+    fun getClose(): MutableLiveData<Boolean> {
+        return close
+    }
+
+    fun setClose() {
+        close.value = true
+    }
+
+    fun getLoading(): MutableLiveData<Boolean> {
+        return observable.getLoading()
+    }
+
+    fun getMessage(): MutableLiveData<Int> {
+        return observable.getMessage()
     }
 
     fun callTransactions() {
-        paymentListObservable.callTransactions()
+        observable.callTransactions()
     }
 
     fun getTransactions(): MutableLiveData<List<Transactions>> {
-        return paymentListObservable.getTransactions()
+        return observable.getTransactions()
+    }
+
+    fun getTransactionAtPosition(position: Int): Transactions? {
+        val products: List<Transactions>? = observable.getTransactions().value
+        return products?.get(position)
     }
 
     fun setPaymentsInRecyclerAdapter(transactions: List<Transactions>) {
@@ -47,7 +64,7 @@ class PaymentListViewModel : ViewModel() {
         return recyclerPaymentsAdapter
     }
 
-    fun onTransactionClick(index: Int) {
+    fun setTransactionSelected(index: Int) {
         selected.value = getTransactionAtPosition(index)
     }
 
@@ -55,8 +72,8 @@ class PaymentListViewModel : ViewModel() {
         return selected
     }
 
-    fun deleteTransaction(id: String){
-        paymentListObservable.deleteTransaction(id)
+    fun deleteTransaction(id: String) {
+        observable.deleteTransaction(id)
     }
 
 }
