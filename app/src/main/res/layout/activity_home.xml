@@ -80,7 +80,8 @@
                     android:text="@{model.displayName}"
                     android:textAllCaps="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/textView_medium_size" />
+                    android:textSize="@dimen/textView_big_size"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -115,8 +116,8 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
                             android:text="@string/menu_hisotry"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/textView_medium_size" />
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textView_big_size" />
 
                     </RelativeLayout>
 
@@ -131,8 +132,8 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
                             android:text="@string/menu_sign_out"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/textView_medium_size" />
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/textView_big_size" />
 
                     </RelativeLayout>
 

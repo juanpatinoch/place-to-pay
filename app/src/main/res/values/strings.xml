@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PlaceToPay</string>
 
-    <string name="menu_hisotry">Ver pagos</string>
+    <string name="menu_hisotry">Lista de pagos</string>
     <string name="menu_sign_out">Cerrar sesión</string>
 
     <string name="home_message_error">Ha ocurrido un problema consultando el listado de productos.</string>
