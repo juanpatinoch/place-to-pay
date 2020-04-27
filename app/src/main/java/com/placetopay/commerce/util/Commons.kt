@@ -59,7 +59,7 @@ class Commons {
                     }
                 }
             } catch (ex: Exception) {
-            } // for now eat exceptions
+            }
             return ""
         }
 

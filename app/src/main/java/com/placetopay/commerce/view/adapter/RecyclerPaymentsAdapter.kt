@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.placetopay.commerce.BR
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.viewmodel.PaymentListViewModel
 
 class RecyclerPaymentsAdapter(var paymentListViewModel: PaymentListViewModel, var resource: Int) :

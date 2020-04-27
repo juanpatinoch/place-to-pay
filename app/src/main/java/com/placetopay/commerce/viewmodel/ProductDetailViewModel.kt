@@ -1,11 +1,8 @@
 package com.placetopay.commerce.viewmodel
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.placetopay.commerce.model.Products
-import com.squareup.picasso.Picasso
+import com.placetopay.commerce.model.dto.Products
 
 class ProductDetailViewModel : ViewModel() {
 

@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.placetopay.commerce.R
 import com.placetopay.commerce.databinding.ActivityProductDetailBinding
-import com.placetopay.commerce.model.Products
+import com.placetopay.commerce.model.dto.Products
 import com.placetopay.commerce.viewmodel.ProductDetailViewModel
 
 class ProductDetailActivity : AppCompatActivity() {

@@ -2,7 +2,7 @@ package com.placetopay.commerce.model.observable
 
 import androidx.databinding.BaseObservable
 import androidx.lifecycle.MutableLiveData
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.repository.PaymentListRepository
 
 class PaymentListObservable : BaseObservable() {

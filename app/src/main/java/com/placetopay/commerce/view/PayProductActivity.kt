@@ -12,7 +12,7 @@ import com.placetopay.commerce.BR
 import com.placetopay.commerce.R
 import com.placetopay.commerce.databinding.ActivityPayProductBinding
 import com.placetopay.commerce.databinding.DialogMessageBinding
-import com.placetopay.commerce.model.Products
+import com.placetopay.commerce.model.dto.Products
 import com.placetopay.commerce.viewmodel.DialogMessageViewModel
 import com.placetopay.commerce.viewmodel.PayProductViewModel
 

@@ -38,7 +38,8 @@ class SplashActivity : AppCompatActivity() {
         viewModel?.getGoHome()?.observe(this, Observer {
             if (it != null && !it) {
                 val intent = Intent(this, HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             } else {
                 login()
@@ -54,6 +55,7 @@ class SplashActivity : AppCompatActivity() {
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
+                .setIsSmartLockEnabled(false)
                 .setAvailableProviders(providers)
                 .setLogo(R.mipmap.ic_launcher)
                 .setTheme(R.style.FirebaseUITheme)
@@ -67,7 +69,8 @@ class SplashActivity : AppCompatActivity() {
         if (requestCode == 101) {
             if (resultCode == Activity.RESULT_OK) {
                 val intent = Intent(this, HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             } else {
                 finish()

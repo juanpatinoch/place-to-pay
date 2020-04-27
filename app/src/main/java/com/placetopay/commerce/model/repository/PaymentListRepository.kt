@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.util.Commons
 
 class PaymentListRepository {
@@ -48,7 +48,8 @@ class PaymentListRepository {
                     } else if (result != null && !result.isEmpty) {
                         for (item in result.documents) {
                             try {
-                                val transaction = Transactions()
+                                val transaction =
+                                    Transactions()
                                 transaction.id = item.id
                                 transaction.status =
                                     if (item.data?.get("status") == null) null else item.data?.get("status").toString()

@@ -6,7 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.Products
+import com.placetopay.commerce.model.dto.Products
 import com.placetopay.commerce.util.Commons
 
 
@@ -51,7 +51,8 @@ class HomeRepository {
 
                         for (document in result) {
                             try {
-                                val product = Products()
+                                val product =
+                                    Products()
                                 product.code = document.id
                                 product.name = if (document.data["name"] == null) null else document.data["name"].toString()
                                 product.description = if (document.data["description"] == null) null else document.data["description"].toString()

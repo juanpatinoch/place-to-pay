@@ -3,7 +3,7 @@ package com.placetopay.commerce.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.placetopay.commerce.R
-import com.placetopay.commerce.model.Transactions
+import com.placetopay.commerce.model.dto.Transactions
 import com.placetopay.commerce.model.observable.PaymentListObservable
 import com.placetopay.commerce.view.adapter.RecyclerPaymentsAdapter
 
