@@ -1,15 +1,31 @@
-# Place to Pay - MVVM - Android
+# MeLi Search
 
-_Este proyecto es desarrollado en Android con Kotlin para lograr una integración con las APIs de **Place to Pay.**
-Para poder lograr esta app se utilizó como autenticación **Firebase Authentication** y como base de datos **Firebase Firestore.**
-El escenario utilizado es una aplicación de compra de productos que se deben pagar con tarjeta de crédito.
-Para la realización se utilizó arquitectura MVVM._
+Este proyecto es desarrollado en Android con Kotlin.
+Se hizo una integración con la API de Mercado Libre para realizar búsqueda de productos.
 
-## Comencemos 🚀
+## Composición de la aplicación 🚀
 
-_En la ruta **place-to-pay/apk/** se encuentra el APK para que lo instales._
+### Arquitectura 📦
 
-_Para obtener una copia del proyecto, en la parte superior derecha puedes clonar o descargar el proyecto, dando click en el botón **Clone or download**_
+Se utilizó arquitectura _MVVM_, con _Clean Architecture_ y _Principios SOLID_.
+
+### Librerías utilizadas
+
+#### Retrofit
+Se utiliza Retrofit para hacer las peticiones a la API
+#### Moshi
+Moshi nos ayuda con la conversión de datos JSON que nos retorna el servicio
+#### Kotlin Coroutine Adapter
+Adaptador para las corrutinas.
+#### Okhttp3
+Nos sirve de log interceptor para las peticiones a la API
+#### Koin
+Para realizar la inyección de dependencias de todo el proyecto
+####Paging3
+Librería oficial de Android, utilizada para mostrar el listado de resultados con paginación
+####Glade
+Se utiliza para cargar las imágenes de los productos
+
 
 ### Pre-requisitos 📋
 
